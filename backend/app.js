@@ -6,12 +6,12 @@ import cors from 'cors';
 const app = express();
 const PORT = 3000;
 
-// MySQL database connection configuration
+
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'linux',
-    database: 'quadb',
+    host: 'yourhost',
+    user: 'username',
+    password: 'password',
+    database: 'databaseName',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -56,7 +56,7 @@ await connection.commit();
     }
 });
 
-// Function to fetch tickers data from the database
+
 const fetchTickersFromDB = async () => {
     try {
         const connection = await pool.getConnection();

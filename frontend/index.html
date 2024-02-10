@@ -40,8 +40,6 @@
                             <li><a href="#">WIN</a></li>
                             <li><a href="#">BTT</a></li>
                             <li><a href="#">WRX</a></li>
-
-                            <!-- Add more options as needed -->
                         </ul>
                     </li>
                     <li>
@@ -75,10 +73,11 @@
     <!-- div for loading results -->
 
     <div class="loader-wrapper" id="loader-wrapper">
+        <div id="loader"></div>
     </div>
 
     <!-- footer here  -->
-    <footer>
+    <footer><div id="loader"></div>
         <div class="footer">
             <div>
                 <div class="footer-text">Copyright &#169 2024</div>
@@ -101,7 +100,7 @@
                     content.classList.toggle("show");
                 });
 
-                // Add event listeners to dropdown items
+                
                 items.forEach(function (item) {
                     item.addEventListener("click", function () {
                         var text = item.textContent;
@@ -113,13 +112,13 @@
             });
 
             var countdownText = document.querySelector(".countdown-text");
-            var duration = 60; // Duration in seconds
+            var duration = 60; 
             var remainingTime = duration;
 
             function updateCountdown() {
                 countdownText.textContent = remainingTime;
                 var progress = (duration - remainingTime) / duration;
-                var circumference = Math.PI * 80; // 80 is the radius of the circle
+                var circumference = Math.PI * 80; 
                 var dashoffset = circumference * (1 - progress);
                 document.querySelector(".countdown-circle").style.strokeDashoffset = dashoffset;
             }
@@ -130,10 +129,10 @@
                     updateCountdown();
                     if (remainingTime <= 0) {
                         clearInterval(timer);
-                        remainingTime = duration; // Reset the timer
-                        startCountdown(); // Restart countdown
+                        remainingTime = duration; 
+                        startCountdown(); 
                     }
-                }, 1000); // Update every second
+                }, 1000);
             }
 
             startCountdown();
@@ -155,7 +154,7 @@
             }
 
             function hideLoader() {
-                document.querySelector(".loader-wrapper").style.display = "none";
+                document.querySelector(".loader-wrapper").style.display = "block";
             }
 
             async function fetchData() {
@@ -168,7 +167,7 @@
 
                     hideLoader();
 
-                    renderDataAsCards(data)
+                    renderDataAsTable(data);
                 } catch (error) {
                     console.error('Error fetching data:', error);
 
@@ -176,23 +175,42 @@
                 }
             }
 
-            function renderDataAsCards(data) {
-                const container = document.getElementById('loader-wrapper');
-            container.innerHTML = '';
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.innerHTML = `
-                    <h2>${item.ticker_name}</h2>
-                    <p>Last Traded Price: ${item.last_traded_price}</p>
-                    <p>Buy Price: ${item.buy_price}</p>
-                    <p>Sell Price: ${item.sell_price}</p>
-                    <p>Difference: ${item.high} - ${item.low}</p>
-                `;
-                container.appendChild(card);
-            });
-            console.log(container);
-        }
+            function renderDataAsTable(data) {
+    const container = document.getElementById('loader');
+    container.innerHTML = ''; 
+
+    const table = document.createElement('table');
+    table.classList.add('data-table'); 
+
+    
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `
+        <th>Ticker Name</th>
+        <th>Last Traded Price</th>
+        <th>Buy Price</th>
+        <th>Sell Price</th>
+        <th>High</th>
+        <th>Low</th>
+    `;
+    table.appendChild(headerRow);
+
+    // Create table body
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.ticker_name}</td>
+            <td>${item.last_traded_price}</td>
+            <td>${item.buy_price}</td>
+            <td>${item.sell_price}</td>
+            <td>${item.high}</td>
+            <td>${item.low}</td>
+        `;
+        table.appendChild(row);
+    });
+
+    container.appendChild(table);
+}
+
 
             fetchData();
         });

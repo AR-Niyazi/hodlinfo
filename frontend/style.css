@@ -27,7 +27,6 @@ nav {
 
 .left {
     margin-left: 20px;
-    /* Add margin to the left of the logo */
 }
 
 nav img {
@@ -46,7 +45,6 @@ nav .right {
 .right ul li {
     list-style: none;
     margin: 0 10px;
-    /* Adjust margin */
 }
 
 nav ul {
@@ -260,6 +258,38 @@ input:checked+.slider:before {
     background-color: white;
 }
 
+.loader-wrapper{
+     text-align: center;
+     width: 100%;
+  /* margin-top: 10%; */
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* margin-top: 10px; */
+}
+
+.data-table th, .data-table td {
+    padding: 10px;
+    border: 1px solid #1A1A1D;
+}
+
+.data-table th {
+    background-color: rgb(85, 85, 85);
+    font-weight: bold;
+    text-align: left;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #1A1A1D;
+}
+
+.data-table tr:hover {
+    background-color: rgb(85, 85, 85);
+}
+
+
 
 footer {
 
@@ -272,13 +302,4 @@ footer {
     
     margin-bottom: 30px;
    
-}
-
-.card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
-    display: inline-block;
 }
